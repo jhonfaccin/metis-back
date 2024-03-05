@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  metis-back:
+    build: .
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: teste
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - postgres-database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  postgres-database:
+
