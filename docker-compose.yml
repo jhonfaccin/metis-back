@@ -11,7 +11,7 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRES_DB: teste
+      POSTGRES_DB: metis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
     volumes:
