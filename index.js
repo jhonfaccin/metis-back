@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
-app.get("/", (req,resp) => {
-    resp.send("BBB!!");
-})
-const port = process.env.PORT || 4000;
+const port = 9000;
+
+app.use("/",require("./server/route/metisRoute"));
+
+
 app.listen(port, () => {
-    console.log(`listeninn on port ${400}`)
+    console.log(`listeninn on port ${9000}`)
 });
