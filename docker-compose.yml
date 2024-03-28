@@ -1,5 +1,18 @@
 version: '3.8'
 services:
+  db:
+    image: postgres:16.2-alpine3.18
+    environment:
+      # - postgres://postgres:123456@db:5432/metis
+      POSTGRES_DB: metis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - postgres-database:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - local-networks
   metis-back:
     build: .
     ports:
@@ -10,20 +23,10 @@ services:
       - ./.env
     networks:
       - local-networks
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_DB: metis
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-    volumes:
-      - postgres-database:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - local-networks
-volumes:
-  postgres-database:
+
 networks:
   local-networks:
-    driver: bridge
+    external: true
+
+volumes:
+  postgres-database:
