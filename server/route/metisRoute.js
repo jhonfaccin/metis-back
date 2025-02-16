@@ -5,13 +5,11 @@ const metisService = require("../service/metisService");
 
 router.get("/diarios", async (req, res) => {
     const diaries = await metisService.getDiaries();
-    console.log(diaries)
     res.status(200).json(diaries);
 });
 
 router.post("/cadastrarDiario", async (req, res) => {
     const diary = req.body;
-    console.log("AAAAAAAAAA",diary)
     const diarySaved = await metisService.saveDiary(diary);
     res.status(201).json(diarySaved);
 
