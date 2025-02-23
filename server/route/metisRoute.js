@@ -8,6 +8,11 @@ router.get("/diarios", async (req, res) => {
     res.status(200).json(diaries);
 });
 
+router.get("/diario/:id", async (req, res) => {
+    const diary = await metisService.getDiary(req.params.id);
+    res.status(200).json(diary);
+});
+
 router.post("/cadastrarDiario", async (req, res) => {
     const diary = req.body;
     const diarySaved = await metisService.saveDiary(diary);

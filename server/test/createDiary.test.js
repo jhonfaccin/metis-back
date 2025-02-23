@@ -13,6 +13,10 @@ const generate = function () {
 const request = (url, method, data) => {
     return axios({ url, method, data })
 }
+  
+beforeEach(async () => {
+    await database.query("DELETE FROM metis.diary"); 
+});
 
 afterAll(() => {
     database.$pool.end();
@@ -40,6 +44,16 @@ test('Should get diaries', async function () {
     await metisService.deleteDiary(diary1.id);
     await metisService.deleteDiary(diary2.id);
     await metisService.deleteDiary(diary3.id);
+});
+
+
+test('Should get diary by id', async function () {
+    const diary = await metisService.saveDiary({ dayReport: generate(), gratitude: generate(), dayRegister: new Date() });
+    const response = await request(`${baseURL}/diarios`, 'get');
+    const diaries = response.data;
+    expect(response.status).toBe(200);
+    expect(diaries).toHaveLength(1);
+    await metisService.deleteDiary(diary.id);
 });
 
 test("Should update diary", async () => {
